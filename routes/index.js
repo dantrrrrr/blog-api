@@ -9,6 +9,9 @@ function route(app){
     app.use('/api/user',usersRouter)
     app.use('/api/posts',postsRouter)
     app.use('/api/categories',categoriesRouter)
+    app.use('/',(req,res)=>{
+        res.json('success')  
+    })
 
     
 }
