@@ -16,7 +16,7 @@ class PostController {
         }
     }
     ///testing
-    async test(req,res){
+    async test(req, res) {
         res.status(200).json(req.body);
         console.log(req.body)
     }
@@ -47,35 +47,35 @@ class PostController {
         }
     }
     async delete(req, res) {
-       try {
+        try {
             const post = await Post.findById(req.params.id);
-            if(post){
+            if (post) {
 
                 console.log(post)
-                if(post.username === req.body.username){ //user delete their own post
-    
+                if (post.username === req.body.username) { //user delete their own post
+
                     await post.delete();
                     res.status(200).json('post has been deleted !')
-                }else{
+                } else {
                     res.status(401).json("you can not delete this post")
                 }
-            }else{
+            } else {
                 res.status(401).json("NOT FOUND POST ")
             }
 
-       } catch (error) {
-        
-       }
+        } catch (error) {
+
+        }
 
     }
     //Get post/:slug
     async getPost(req, res) {
         try {
-            const post = await Post.findOne({slug:req.params.slug});
+            const post = await Post.findOne({ slug: req.params.slug });
             // console.log(req.params.slug)
-            if(post){
+            if (post) {
                 res.status(200).json(post)
-            }else{
+            } else {
 
                 res.status(500).json("there no post found");
             }
@@ -86,28 +86,55 @@ class PostController {
     }
     //
     async getAllPosts(req, res) {
-        const username =req.query.user;
-        const category =req.query.cat;
+        const username = req.query.user;
+        const category = req.query.cat;
 
         try {
             let posts;
-            if(username){
-                posts = await Post.find({username});
+            if (username) {
+                posts = await Post.find({ username });
 
 
-            }else if(category){
-                posts = await Post.find({   categories: {
-                    $in:[category]
-                } });
+            } else if (category) {
+                posts = await Post.find({
+                    categories: {
+                        $in: [category]
+                    }
+                });
 
-            }else{
+            } else {
                 posts = await Post.find();
             }
             res.status(200).json(posts);
         } catch (error) {
-            
+
         }
 
+        
+    }
+    async getRandom(req, res) {
+        const cat = req.query.cat;
+        let post;
+
+        try {
+            // if (cat === 'news') {
+            //     post = await Post.aggregate([
+            //         { $match: { isSeries: true } },
+            //         { $sample: { size: 1 } }
+            //     ])
+            // }else{
+            //     post = await Post.aggregate([
+            //         { $match: { isSeries: false } },
+            //         { $sample: { size: 1 } }
+            //     ]) 
+            // }
+            post =await Post.aggregate([
+                {$sample:{size:3}}
+            ])
+            res.status(200).json(post);
+        } catch (error) {
+            res.json(error)
+        }
     }
 }
 module.exports = new PostController();
