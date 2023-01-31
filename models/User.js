@@ -7,7 +7,7 @@ const UserSchema =new Schema({
     isAdmin :{type: Boolean, default: false},
     email:{type: String, required: true},
     password:{type: String, required: true},
-    profilePicture:{type: String,default:" "}
+    profilePicture:{type: String,default:"https://bafybeidxreedxpm7strmpek2nvfh7gbatj6c2mkeku4ppswxamsf5gd3rq.ipfs.dweb.link/ape.png"}
 
 },{timestamps:true})
 
