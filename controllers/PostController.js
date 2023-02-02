@@ -92,7 +92,7 @@ class PostController {
         try {
             let posts;
             if (username) {
-                posts = await Post.find({ username });
+                posts = await Post.find({ username }).sort({createdAt:-1});
 
 
             } else if (category) {
@@ -100,10 +100,10 @@ class PostController {
                     categories: {
                         $in: [category]
                     }
-                });
+                }).sort({createdAt:-1});
 
             } else {
-                posts = await Post.find();
+                posts = await Post.find().sort({createdAt:-1});
             }
             res.status(200).json(posts);
         } catch (error) {
