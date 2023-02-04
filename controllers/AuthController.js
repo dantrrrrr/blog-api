@@ -38,13 +38,13 @@ class AuthController {
                     const {password,...other}=user._doc;
                     res.status(201).json({...other,accessToken})
                 }else{
-                    res.status(403).json("Something went wrong !")
+                    res.status(403).json("Wrong password !")
                 }
             }else{
-                res.status(401).json("Something went wrong !!")
+                res.status(401).json("User not found !")
             }
         } catch (error) {
-            res.status(500).json("error: " + error)
+            res.status(500).json("Something went wrong: " + error)
         }
     }
 
