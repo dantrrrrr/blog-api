@@ -5,12 +5,15 @@ const mongoose = require('mongoose');
 const route = require('./routes');
 const cors = require('cors');
 const multer = require('multer');
+const cookieParser =require('cookie-parser')
 
 
 dotenv.config();
 app.use(express.json());
 app.use(cors());
 app.use(express.static(__dirname+'/public/'))
+app.use(cookieParser());
+
 
 
 mongoose.set('strictQuery', false);

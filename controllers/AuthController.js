@@ -35,8 +35,10 @@ class AuthController {
                         process.env.JWT_KEY,
                         {expiresIn: '3d'}
                     )
-                    const {password,...other}=user._doc;
-                    res.status(201).json({...other,accessToken})
+                    const {password,...others}=user._doc;
+                    // res.status(201).json({...other,accessToken})
+                    res.cookie("access_token",accessToken,{ httpOnly: true }).status(200).json(others); //save token to cookie
+
                 }else{
                     res.status(403).json("Wrong password !")
                 }
