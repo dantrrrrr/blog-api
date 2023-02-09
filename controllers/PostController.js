@@ -25,7 +25,7 @@ class PostController {
 
         try {
             const post = await Post.findByIdAndUpdate(req.params.id);
-            if (post.username === req.body.username) {
+            // if (post.username === req.body.username) {
                 try {
                     const updatedPost = await Post.findByIdAndUpdate(
                         req.params.id,
@@ -39,9 +39,9 @@ class PostController {
 
                 }
 
-            } else {
-                res.status(401).json("you cant update")
-            }
+            // } else {
+            //     res.status(401).json("you cant update")
+            // }
         } catch (error) {
             res.status(500).json("can not find post")
         }
