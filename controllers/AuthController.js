@@ -36,12 +36,13 @@ class AuthController {
                         {expiresIn: '3d'}
                     )
                     const {password,...others}=user._doc;
-                    // res.status(201).json({...other,accessToken})
-                    res.cookie("access_token",accessToken,{ httpOnly: true }).status(200).json(others); //save token to cookie
+                    res.status(201).json({...others,accessToken})
+                    // res.cookie("access_token",accessToken,{ httpOnly: true }).status(200).json(others); //save token to cookie
 
                 }else{
                     res.status(403).json("Wrong password !")
                 }
+                
             }else{
                 res.status(401).json("User not found !")
             }
