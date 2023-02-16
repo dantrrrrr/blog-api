@@ -13,7 +13,8 @@ class UserController {
         }
         try {
             const updateUser = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-            res.status(200).json(updateUser);
+            const {password,isAdmin,...others} = updateUser._doc;
+            res.status(200).json(others);
         } catch (error) {
             res.status(500).json(error)
         }
