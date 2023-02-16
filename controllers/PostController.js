@@ -51,8 +51,8 @@ class PostController {
             const post = await Post.findById(req.params.id);
             if (post) {
 
-                console.log(post)
-                if (post.username === req.body.username) { //user delete their own post
+                // console.log(post)
+                if (post.username === req.body.username|| req.user.isAdmin) { //user delete their own post
 
                     await post.delete();
                     res.status(200).json('post has been deleted !')
